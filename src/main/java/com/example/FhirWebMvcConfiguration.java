@@ -40,11 +40,18 @@ public class FhirWebMvcConfiguration extends WebMvcConfigurationSupport {
 
 				MappingJackson2HttpMessageConverter jacksonConverter = (MappingJackson2HttpMessageConverter) converter;
 
+				// http://stackoverflow.com/questions/36119852/spring-boot-actuator-pretty-print-json/36948428#36948428
 				jacksonConverter.setPrettyPrint( true );
+
+				// exclude null properties from being serialized
 				jacksonConverter.getObjectMapper().setSerializationInclusion( Include.NON_NULL );
+
+				// date format for how calendar/date fields are serialized
+				// Salesforce expects ISO 8601 format and values in GMT
 				jacksonConverter.getObjectMapper().setDateFormat( new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ" ) );
 				jacksonConverter.getObjectMapper().setTimeZone(  TimeZone.getTimeZone( "GMT-00:00" ) );
 
+				// use mixin to provide more granular jackson options per class
 				jacksonConverter.getObjectMapper().addMixIn( HealthCloudGA__EhrPatient__c.class, Mixin_HealthCloudGA__EhrPatient__c.class );
 
 			}

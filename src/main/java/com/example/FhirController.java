@@ -64,13 +64,11 @@ public class FhirController {
 		// Denormalize the FHIR response into Salesforce's Health Cloud object model
 		// On the Salesforce side, can easily deserialize the JSON response into an sobject.
 		/*
-			String ENDPOINT_URL = 'http://localhost:8080/';
+			String ENDPOINT_URL = 'https://mighty-harbor-65742.herokuapp.com/fhir';
+			String patientId = 'Tbt3KuCY0B5PSrJvCu2j-PlK.aiHsu2xUjUM8bWpetXoB';
 
 			HttpRequest req = new HttpRequest();
-			req.setEndpoint(
-				ENDPOINT_URL + 'patient' +
-				'?patientId=' + EncodingUtil.urlEncode( patientId, 'UTF-8' )
-			);
+			req.setEndpoint( ENDPOINT_URL + '/patient/' + EncodingUtil.urlEncode( patientId, 'UTF-8' ) );
 			req.setMethod('GET');
 
 			Http http = new Http();
